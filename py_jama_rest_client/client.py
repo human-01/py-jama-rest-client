@@ -142,6 +142,26 @@ class JamaClient:
         project_data = self.__get_all(resource_path,  allowed_results_per_page=allowed_results_per_page)
         return project_data
 
+    def get_filters(self, project_id=None, allowed_results_per_page=__allowed_results_per_page):
+        """
+        Get all results items for the filter with the specified ID
+
+        Args:
+            filter_id: The ID of the filter to fetch the results for.
+            project_id: Use this only for filters that run on any project, where projectScope is CURRENT
+            allowed_results_per_page: Number of results per page
+
+        Returns:
+            A List of items that match the filter.
+
+        """
+        resource_path = 'filters/'
+        params = None
+        if project_id is not None:
+            params = {'project': str(project_id)}
+        filters= self.__get_all(resource_path, params=params, allowed_results_per_page=allowed_results_per_page)
+        return filters
+
     def get_filter_results(self, filter_id, project_id=None, allowed_results_per_page=__allowed_results_per_page):
         """
         Get all results items for the filter with the specified ID
